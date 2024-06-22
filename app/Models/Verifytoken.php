@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class usuarios extends Model
+class Verifytoken extends Model
 {
     use HasFactory;
-    private $fillable = ['name', 'last_name', 'user', 'email', 'password', 'password_confirmation'];
+    protected $fillable = ['token', 'email', 'is_activated'];
 }

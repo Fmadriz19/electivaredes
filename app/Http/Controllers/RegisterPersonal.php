@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\usuarios;
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Validator;
@@ -23,7 +23,7 @@ class RegisterPersonal extends Controller
             'name' => 'required',
             'last_name' => 'required',
             'user' => 'required',
-            'email' => 'required | email | unique:usuarios',
+            'email' => 'required | email | unique:Usuario',
             'password' => ['required', 'confirmed', Password::min(8)->letters()
             ->mixedCase()
             ->numbers()
@@ -33,7 +33,7 @@ class RegisterPersonal extends Controller
         
         
         
-        $users = new usuarios;
+        $users = new Usuario;
         $users->name = $request->name;
         $users->last_name = $request->last_name;
         $users->user = $request->user;
