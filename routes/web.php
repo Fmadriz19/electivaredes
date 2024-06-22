@@ -1,20 +1,21 @@
 <?php
 
+use App\Http\Controllers\AuthUsuarios;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RegisterPersonal;
-Route::get('/', function () {
+
+route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Route::get('/register', [AuthUsuarios::class, 'index'])->name('register');
+Route::post('/register', [AuthUsuarios::class, 'store']);
 
-Route::get('/hola', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/login', [AuthUsuarios::class, 'login'])->name('login');
+Route::post('/login', [AuthUsuarios::class, 'authenticate']);
 
-// Registro
-Route::get('/view', [App\Http\Controllers\RegisterPersonal::class, 'index']);
-Route::post('/register', [App\Http\Controllers\RegisterPersonal::class, 'store']);
+Route::get('/home', [AuthUsuarios::class, 'inicio'])->name('inicio')->middleware('auth');
 
 //Correo verificar
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/verify-account', [App\Http\Controllers\HomeController::class, 'verifyaccount'])->name('verifyAccount');
 Route::post('/verifyotp', [App\Http\Controllers\HomeController::class, 'useractivation'])->name('verifyotp');
+Route::post('/logout', [AuthUsuarios::class, 'destroy'])->name('logout');
